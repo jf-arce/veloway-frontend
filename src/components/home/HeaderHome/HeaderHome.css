@@ -1,0 +1,49 @@
+.header-home{
+    padding: 20px;
+    z-index: 3;
+    background: transparent;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .links-header-home{
+    display: grid;
+    grid-template-columns: 300px repeat(2,1fr);
+    /* border: 1px solid black; */
+    color: white;
+    
+  }
+  
+  .logo-empresa{
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px 10px 80px;
+    font-family: var(--font-nico-moji);
+    font-size: 30px;
+  }
+  
+  .links-header-1, .links-header-2{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-weight: 500;
+    /* border: 1px solid black; */
+  }
+
+  .links-header-1{
+    gap: 10%;
+  }
+  
+  .links-header-2{
+    gap: 5%;
+  }
+
+  .white-button{
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+  }
