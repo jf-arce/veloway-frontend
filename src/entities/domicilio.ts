@@ -6,8 +6,8 @@ export interface Domicilio {
     numero: number;
     localidad: Localidad;
     depto: string | null;
-    piso: string | null;
-    descripcion?: string | null;
+    piso: number | null;
+    descripcion: string | null;
 }
 
 export interface DomicilioDto {

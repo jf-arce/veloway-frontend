@@ -3,7 +3,8 @@ import { Stack, TextField } from "@mui/material";
 import { useState } from "react";
 
 const LicenciaForm: React.FC = () => {
-  const { licenseValues, setLicenseValues } = useDriverRegistroStore();
+  const licenseValues = useDriverRegistroStore((state) => state.licenseValues);
+  const setLicenseValues = useDriverRegistroStore((state) => state.setLicenseValues);
   const [errors, setErrors] = useState({
     numero: false,
     categoria: false,
@@ -24,7 +25,6 @@ const LicenciaForm: React.FC = () => {
       }
       // Actualizamos el valor convertido a número
       setLicenseValues({ numero: Number(numericStr) });
-      // console.log(licenseValues)
 
     } else {
       if (value.trim() === "") {
@@ -33,7 +33,6 @@ const LicenciaForm: React.FC = () => {
         setErrors((prev) => ({ ...prev, [name]: false }));
       }
       setLicenseValues({ [name]: value });
-      // console.log(licenseValues)
     }
   };
 

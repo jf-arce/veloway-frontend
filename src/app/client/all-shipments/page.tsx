@@ -23,6 +23,7 @@ import Link from "next/link";
 import { EnvioFilters } from "@/types/types";
 import { useDebounce } from "@/hooks/useDebounce";
 import SearchIcon from "@mui/icons-material/Search";
+import { useAuthStore } from "@/stores/authStore";
 
 const stateOptions = [
 	{ id: 1, label: "Confirmado" },
@@ -44,11 +45,13 @@ const AllShipmentsPage = () => {
 	const [page, setPage] = useState(1);
 	const [filters, setFilters] = useState<EnvioFilters>();
 	const debouncedFilters = useDebounce(filters);
+	const userPayload = useAuthStore((state) => state.userPayload);
 
 	useEffect(() => {
+		if (!userPayload) return;
 		setLoading(true);
 		EnviosService.getAllByClienteIdPagination(
-			"123e4567-e89b-12d3-a456-426614174000",
+			userPayload.id,
 			page,
 			debouncedFilters
 		)

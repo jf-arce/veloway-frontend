@@ -10,11 +10,7 @@ interface RegistroProps {
 
 const Registro = ({ handleErrorRequireInputs }: RegistroProps) => {
 	const { userValues, setUserValues } = useRegistroStore();
-
-    const [phoneInputError, setPhoneInputError] = useState(false);
     const [dniError, setDniError] = useState(false);
-
-
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
@@ -32,7 +28,6 @@ const Registro = ({ handleErrorRequireInputs }: RegistroProps) => {
           } else {
             setUserValues({ ...userValues, [name]: value });
           }
-        // console.log(userValues)
 	};
 
 	return (
@@ -60,23 +55,28 @@ const Registro = ({ handleErrorRequireInputs }: RegistroProps) => {
                     ? true 
                     : false
                 }
-                helperText={handleErrorRequireInputs && userValues.password.length < 8 ? "La contraseña debe tener al menos 8 caracteres" : ""}
+                helperText={
+                    handleErrorRequireInputs && userValues.password === "" ? "" : 
+                    handleErrorRequireInputs && userValues.password.length < 8 ? "La contraseña debe tener al menos 8 caracteres" : ""
+                }
             />
             <TextField
                 label='DNI'
-                type='text'
+                type='number'
                 name='dni'
                 value={userValues.dni}
                 onChange={handleChange}
                 required
                 inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
-                error={dniError || (userValues.dni.length > 0 && userValues.dni.length !== 8)}
+                error={
+                    handleErrorRequireInputs && userValues.dni === "" || 
+                    handleErrorRequireInputs && isNaN(Number(userValues.dni)) || 
+                    handleErrorRequireInputs && userValues.dni.length !== 8
+                }
                 helperText={
-                  dniError
-                    ? "El DNI solo acepta números"
-                    : userValues.dni.length > 0 && userValues.dni.length !== 8
-                    ? "El DNI debe tener 8 dígitos"
-                    : ""
+                    handleErrorRequireInputs && userValues.dni === "" ? "" :
+                    handleErrorRequireInputs && isNaN(Number(userValues.dni)) ? "El DNI debe ser un número" :
+                    handleErrorRequireInputs && userValues.dni.length !== 8 ? "El DNI debe tener 8 dígitos" : ""
                 }
             />
             <TextField

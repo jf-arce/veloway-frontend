@@ -14,7 +14,8 @@ interface VehiculoFormProps {
 
 
 const VehiculoForm = ({ tiposVehiculo = [], modelos = [], marcas = [] }: VehiculoFormProps) => {
-  const { vehicleValues, setVehicleValues } = useDriverRegistroStore();
+  const vehicleValues = useDriverRegistroStore((state) => state.vehicleValues);
+  const setVehicleValues = useDriverRegistroStore((state) => state.setVehicleValues);
   const [modelosFiltrados, setModelosFiltrados] = useState<Modelo[]>([]);
   const [errors, setErrors] = useState({
     anio: false,

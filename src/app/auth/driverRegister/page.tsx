@@ -27,7 +27,7 @@ const RegisterCliente = () => {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const { userValues, setUserValues, addressValues, setAddressValues } = useRegistroStore();
-    const { carnetValues, setCarnetValues, licenseValues, setLicenseValues, vehicleValues, setVehicleValues } = useDriverRegistroStore();
+    const { fichaValues, setFichaValues, licenseValues, setLicenseValues, vehicleValues, setVehicleValues } = useDriverRegistroStore();
 
     const [handleErrorRequireInputs, setHandleErrorRequireInputs] = useState(false);
     const [marcas, setMarcas] = useState<Marca[]>([]);
@@ -97,8 +97,8 @@ const RegisterCliente = () => {
             // - altura: obligatorio, debe ser un número de 3 dígitos (entre 100 y 999)
             // - peso: obligatorio, 2 o 3 dígitos (entre 10 y 999)
             if (
-              carnetValues.altura < 100 || carnetValues.altura > 999 ||
-              carnetValues.peso < 10 || carnetValues.peso > 999
+              fichaValues.altura < 100 || fichaValues.altura > 999 ||
+              fichaValues.peso < 10 || fichaValues.peso > 999
             ) {
               setHandleErrorRequireInputs(true);
               return;
@@ -110,7 +110,7 @@ const RegisterCliente = () => {
         }
       
         // Si pasa todas las validaciones, se quitan los errores y se pasa al siguiente paso
-        console.log(userValues, addressValues, licenseValues, carnetValues, vehicleValues)
+        console.log(userValues, addressValues, licenseValues, fichaValues, vehicleValues)
         setHandleErrorRequireInputs(false);
         setStep((prevStep) => prevStep + 1);
       };
@@ -125,7 +125,7 @@ const RegisterCliente = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(userValues, addressValues, licenseValues, carnetValues, vehicleValues)
+        console.log(userValues, addressValues, licenseValues, fichaValues, vehicleValues)
 
         if (
             vehicleValues.anio < 1970 || vehicleValues.anio > new Date().getFullYear() ||
@@ -141,7 +141,7 @@ const RegisterCliente = () => {
         setLoading(true);
 
         try {
-            await authService.driverRegister(userValues, addressValues, carnetValues , licenseValues , vehicleValues );
+            await authService.driverRegister(userValues, addressValues, fichaValues , licenseValues , vehicleValues );
             toast.success("Registrado correctamente. Inicia sesión para continuar.");
             setUserValues({ 
                 email: "", 
@@ -158,7 +158,7 @@ const RegisterCliente = () => {
                 piso: null, 
                 depto: "", 
                 localidadID: null });
-            setCarnetValues({
+            setFichaValues({
                 altura: 0,
                 peso: 0,
                 enfermedadCardiaca: "",

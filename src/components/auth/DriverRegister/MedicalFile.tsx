@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDriverRegistroStore } from "@/stores/driverRegisterStore";
 import { Stack, TextField, FormControlLabel, Checkbox } from "@mui/material";
 
 const FichaMedica: React.FC = () => {
-  const {
-    carnetValues,
-    setCarnetValues,
-  } = useDriverRegistroStore();
+  const fichaValues = useDriverRegistroStore((state) => state.fichaValues);
+  const setFichaValues = useDriverRegistroStore((state) => state.setFichaValues);
 
   const [errors, setErrors] = useState({
     altura: false,
@@ -17,7 +15,7 @@ const FichaMedica: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
-      setCarnetValues({ [name]: checked });
+      setFichaValues({ [name]: checked });
     } else {
       if (name === "altura") {
         const numericValue = value.replace(/\D/g, '');
@@ -28,6 +26,7 @@ const FichaMedica: React.FC = () => {
           setErrors((prev) => ({ ...prev, altura: false }));
         }
       }
+      
       if (name === "peso") {
         const numericValue = value.replace(/\D/g, '');
         const num = Number(numericValue);
@@ -37,7 +36,13 @@ const FichaMedica: React.FC = () => {
           setErrors((prev) => ({ ...prev, peso: false }));
         }
       }
-      setCarnetValues({ [name]: value });
+
+      if (value === ""  && (name === "enfermedadCardiaca" || name === "enfermedadRespiratoria" || name === "alergias")) {
+        setFichaValues({ [name]: null });
+      } else {
+        setFichaValues({ [name]: value });
+      }
+
     }
   };
 
@@ -46,7 +51,7 @@ const FichaMedica: React.FC = () => {
       <TextField
         label="Altura (cm)"
         name="altura"
-        value={carnetValues.altura || ""}
+        value={fichaValues.altura || ""}
         onChange={handleChange}
         required
         error={errors.altura}
@@ -56,7 +61,7 @@ const FichaMedica: React.FC = () => {
       <TextField
         label="Peso (kg)"
         name="peso"
-        value={carnetValues.peso || ""}
+        value={fichaValues.peso || ""}
         onChange={handleChange}
         required
         error={errors.peso}
@@ -66,21 +71,21 @@ const FichaMedica: React.FC = () => {
       <TextField
         label="Enfermedad Cardiaca (opcional)"
         name="enfermedadCardiaca"
-        value={carnetValues.enfermedadCardiaca || ""}
+        value={fichaValues.enfermedadCardiaca || ""}
         onChange={handleChange}
         fullWidth
       />
       <TextField
         label="Enfermedad Respiratoria (opcional)"
         name="enfermedadRespiratoria"
-        value={carnetValues.enfermedadRespiratoria || ""}
+        value={fichaValues.enfermedadRespiratoria || ""}
         onChange={handleChange}
         fullWidth
       />
       <TextField
         label="Alergias (opcional)"
         name="alergias"
-        value={carnetValues.alergias || ""}
+        value={fichaValues.alergias || ""}
         onChange={handleChange}
         fullWidth
       />
@@ -88,7 +93,7 @@ const FichaMedica: React.FC = () => {
         control={
           <Checkbox
             name="epilepsia"
-            checked={carnetValues.epilepsia || false}
+            checked={fichaValues.epilepsia || false}
             onChange={handleChange}
           />
         }
@@ -98,7 +103,7 @@ const FichaMedica: React.FC = () => {
         control={
           <Checkbox
             name="diabetes"
-            checked={carnetValues.diabetes || false}
+            checked={fichaValues.diabetes || false}
             onChange={handleChange}
           />
         }
@@ -108,7 +113,7 @@ const FichaMedica: React.FC = () => {
         control={
           <Checkbox
             name="compartir"
-            checked={carnetValues.compartir || false}
+            checked={fichaValues.compartir || false}
             onChange={handleChange}
           />
         }

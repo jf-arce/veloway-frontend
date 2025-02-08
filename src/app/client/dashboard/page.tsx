@@ -180,7 +180,7 @@ export default function ClientHomePage({ params }: ClientPageProps) {
 											<dl>
 												<dt className='text-sm font-medium text-gray-500 truncate'>Total Envíos</dt>
 												<dd>
-													{loadingShipments && loadingUserPayload ? (
+													{loadingShipments || loadingUserPayload ? (
 														<div className='h-6 bg-gray-300 rounded w-16 animate-pulse'></div>
 													) : (
 														<div className='text-lg font-medium text-gray-900'>
@@ -221,7 +221,7 @@ export default function ClientHomePage({ params }: ClientPageProps) {
 											<dl>
 												<dt className='text-sm font-medium text-gray-500 truncate'>En Tránsito</dt>
 												<dd>
-													{loadingShipments && loadingUserPayload ? (
+													{loadingShipments || loadingUserPayload ? (
 														<div className='h-6 bg-gray-300 rounded w-16 animate-pulse'></div>
 													) : (
 														<div className='text-lg font-medium text-gray-900'>
@@ -263,7 +263,7 @@ export default function ClientHomePage({ params }: ClientPageProps) {
 									</h3>
 									<div className='mt-5 flow-root min-h-[200px]'>
 										<ul className='-my-4 divide-y divide-gray-200'>
-											{loadingShipments && loadingUserPayload ? (
+											{loadingShipments || loadingUserPayload ? (
 												Array(3)
 													.fill(0)
 													.map((_, index) => (
@@ -367,7 +367,7 @@ export default function ClientHomePage({ params }: ClientPageProps) {
 									</h3>
 									<div className='mt-5'>
 										<div className='flex items-end'>
-											{loadingShipments && loadingUserPayload ? (
+											{loadingShipments || loadingUserPayload ? (
 												Array(12)
 													.fill(0)
 													.map((_, index) => (

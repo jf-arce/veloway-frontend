@@ -10,11 +10,13 @@ import React, { useEffect, useState } from "react";
 import { LocalidadesService } from "@/services/localidades.service";
 import { Localidad } from "@/entities/localidad";
 import SearchIcon from '@mui/icons-material/Search';
+import { useAuthStore } from "@/stores/authStore";
 
 export default function ShipmentRegisterPage() {
 	const shipment = useShipmentRegisterStore((state) => state.shipment);
 	const setShipment = useShipmentRegisterStore((state) => state.setShipment);
 	const [localidades, setLocalidades] = useState<Localidad[]>([]);
+	const loadingUserPayload = useAuthStore((state) => state.loadingUserPayload);
 
 	useEffect(() => {
 		LocalidadesService.getLocalidades().then((localidades) => setLocalidades(localidades));
@@ -30,7 +32,7 @@ export default function ShipmentRegisterPage() {
 		})
 	}
 
-	if (localidades.length === 0)
+	if (localidades.length === 0 || loadingUserPayload)
 		return (
 			<Stack spacing={2}>
 				<Skeleton variant='rectangular' height={70} sx={{ borderRadius: "4px" }} />

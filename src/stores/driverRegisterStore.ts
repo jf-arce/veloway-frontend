@@ -1,36 +1,32 @@
-// store.ts
 import { create } from "zustand";
 import { Licencia } from "@/entities/licencia";
 import  { FichaMedica } from "@/entities/fichaMedica"
 import { Vehiculo } from "@/entities/vehiculo";
 
-
 interface DriverRegistroStore {
-  carnetValues: FichaMedica  
-  setCarnetValues: (values: Partial<FichaMedica>) => void;
+  fichaValues: FichaMedica  
+  setFichaValues: (values: Partial<FichaMedica>) => void;
   licenseValues: Licencia
   setLicenseValues: (values: Partial<Licencia>)  => void;
   vehicleValues: Vehiculo
   setVehicleValues: (values: Partial<Vehiculo>)  => void;
 }
 
-
 export const useDriverRegistroStore = create<DriverRegistroStore>((set) => ({
-    carnetValues: {
+    fichaValues: {
         altura: 0,
         peso: 0,
-        enfermedadCardiaca: "",
-        enfermedadRespiratoria: "",
-        alergias: "",
+        enfermedadCardiaca: null,
+        enfermedadRespiratoria: null,
+        alergias: null,
         epilepsia: false,
         diabetes: false,
         compartir: false    
     },
 
-
-    setCarnetValues: (values) =>
-    set((state) => ({ carnetValues: { ...state.carnetValues, ...values } })),
-
+    setFichaValues: (values) => set((state) => ({ 
+        fichaValues: { ...state.fichaValues, ...values } 
+    })),
 
     licenseValues: {
         numero: 0,
@@ -40,7 +36,6 @@ export const useDriverRegistroStore = create<DriverRegistroStore>((set) => ({
 
     setLicenseValues: (values) =>
     set((state) => ({ licenseValues: { ...state.licenseValues, ...values } })),
-
 
     vehicleValues: {
         anio: 0,
@@ -54,8 +49,6 @@ export const useDriverRegistroStore = create<DriverRegistroStore>((set) => ({
 
     setVehicleValues: (values) =>
     set((state) => ({ vehicleValues: { ...state.vehicleValues, ...values } })),
-    
-
 
 }))
 
