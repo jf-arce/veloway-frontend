@@ -44,18 +44,16 @@ const NavBar = ({ links }: NavbarProps) => {
 				</div>
 				<IoMenu className='text-3xl cursor-pointer lg:hidden' onClick={handleClick} />
 				<ContainerFlex className='gap-3 hidden lg:flex'>
-					{/* <picture>
-						<Image
-							src={user.image}
-							width={50}
-							height={50}
-							alt=''
-							className='rounded-full w-[50px] h-[50px] object-cover'
-						/>
-					</picture> */}
+					<div className='flex items-center justify-center w-[50px] h-[50px] bg-gray-500 rounded-full'>
+						<span className='text-white text-xl font-bold'>
+							{userPayload.nombre.charAt(0)}
+						</span>
+					</div>
 					<div>
 						<p className='font-medium text-base'>{userPayload.nombre} {userPayload.apellido} </p>
-						<p className='font-light text-sm hover:underline cursor-pointer'>Mi cuenta</p>
+						<Link href='/client/profile' className='font-light text-sm hover:underline cursor-pointer'>
+							Mi cuenta
+						</Link>
 					</div>
 				</ContainerFlex>
 			</div>
@@ -68,18 +66,19 @@ const NavBar = ({ links }: NavbarProps) => {
 						</li>
 					))}
 					<ContainerFlex className='gap-3 xl:flex !justify-start'>
-						{/* <picture>
-							<Image
-								src={user.image}
-								width={50}
-								height={50}
-								alt=''
-								className='rounded-full w-[50px] h-[50px] object-cover'
-							/>
-						</picture> */}
+						<div className='flex items-center justify-center w-[50px] h-[50px] bg-gray-500 rounded-full'>
+							<span className='text-white text-xl font-bold'>
+								{userPayload.nombre.charAt(0)}
+							</span>
+						</div>
 						<div>
 							<p className='font-medium text-base'>{userPayload.nombre}</p>
-							<p className='font-light text-sm hover:underline cursor-pointer'>Mi cuenta</p>
+							<Link 
+								href='/client/profile'
+								className='font-light text-sm hover:underline cursor-pointer'
+							>
+								Mi cuenta
+							</Link>
 						</div>
 					</ContainerFlex>
 				</ul>
